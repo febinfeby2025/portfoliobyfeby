@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Febin Portfolio — Elevated Services</title>
+    <link rel="stylesheet" href="./output.css">
+    <link rel="stylesheet" href="./input.css">
+    <link rel="shortcut icon" href="./assets/favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Ovo&display=swap" rel="stylesheet">
+    <style type="text/css">
+        @keyframes spinSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spinSlow 12s linear infinite;
+        }
+
+        /* === ENHANCED SERVICES SECTION STYLES === */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0 2rem;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 2rem 1.5rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.02);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #b820e6, #da7d20, #b820e6);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .service-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-12px);
+            background: rgba(255, 255, 255, 0.85);
+            box-shadow: 0 25px 40px -12px rgba(0, 0, 0, 0.25);
+            border-color: rgba(184, 32, 230, 0.3);
+        }
+
+        /* dark mode overrides */
+        .dark .service-card {
+            background: rgba(30, 30, 40, 0.7);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 10px 25px -8px rgba(0, 0, 0, 0.4);
+        }
+
+        .dark .service-card:hover {
+            background: rgba(40, 40, 55, 0.9);
+            border-color: rgba(218, 125, 32, 0.6);
+            box-shadow: 0 25px 35px -12px rgba(0, 0, 0, 0.6);
+            transform: translateY(-12px);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.2rem;
+            background: linear-gradient(135deg, #f5f0ff, #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .dark .service-icon {
+            background: linear-gradient(135deg, #2a2a35, #1e1e2a);
+            box-shadow: 0 8px 14px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.05) rotate(2deg);
+            background: linear-gradient(135deg, #ffffff, #faf0ff);
+        }
+
+        .dark .service-card:hover .service-icon {
+            background: linear-gradient(135deg, #3a3a4a, #252530);
+        }
+
+        .service-icon img {
+            width: 42px;
+            transition: transform 0.2s;
+        }
+
+        .service-card h3 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 1rem 0 0.75rem;
+            font-family: 'Ovo', serif;
+            background: linear-gradient(115deg, #1f1f2e, #3a2c3a);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .dark .service-card h3 {
+            background: linear-gradient(120deg, #f3e9ff, #f7d48b);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .service-card p {
+            color: #4a4a5a;
+            line-height: 1.5;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            margin-top: 0.5rem;
+        }
+
+        .dark .service-card p {
+            color: #cdcddf;
+        }
+
+        .service-feature-badge {
+            display: inline-block;
+            margin-top: 1.2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            background: rgba(184, 32, 230, 0.12);
+            color: #a52fcf;
+            transition: all 0.2s;
+        }
+
+        .dark .service-feature-badge {
+            background: rgba(218, 125, 32, 0.2);
+            color: #f0bc74;
+        }
+
+        .service-card:hover .service-feature-badge {
+            background: rgba(184, 32, 230, 0.25);
+            letter-spacing: 0.3px;
+        }
+
+        /* section title decoration */
+        .section-sub {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+        .section-sub::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, #b820e6, #da7d20);
+            border-radius: 4px;
+        }
+        /* resp fine-tune */
+        @media (max-width: 640px) {
+            .services-grid {
+                gap: 1.5rem;
+            }
+            .service-card {
+                padding: 1.5rem 1rem;
+            }
+            .service-icon {
+                width: 60px;
+                height: 60px;
+            }
+            .service-icon img {
+                width: 34px;
+            }
+            .service-card h3 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="font-Outfit leading-8 dark:bg-darkTheme dark:text-white">
+    <div class="fixed top-0 right-0 w-11/12 -z-10 translate-y-[-80%] dark:hidden">
+        <img src="./assets/header-bg-color.png" alt="" class="w-full" />
+    </div>
+
+    <nav id="navbar" class="w-full fixed px-5 lg:px-8 xl:px-[8%] py-4 flex items-center justify-between z-50">
+        <p class="bg-white bg-opacity-50 backdrop-blur-lg shadow-sm dark:bg-darkTheme dark:shadow-white/20 sr-only">
+            Hidden</p>
+        <a href="#!">
+            <img src="./assets/febinicon.png" alt="Logo" class="w-28 cursor-pointer mr-14 dark:hidden" />
+            <img src="./assets/dark.png" alt="Logo" class="w-28 cursor-pointer mr-14 hidden dark:block" />
+        </a>
+
+        <ul id="navLink"
+            class="hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 bg-white shadow-sm bg-opacity-50 font-Ovo dark:border dark:border-white/30 dark:bg-transparent ">
+            <li><a class='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#top">Home</a></li>
+            <li><a class='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#about">About me</a></li>
+            <li><a class='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#services">Services</a></li>
+            <li><a class='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#work">My Work</a></li>
+            <li><a class='hover:text-gray-500 dark:hover:text-gray-300 transition' href="#contact">Contact me</a></li>
+        </ul>
+
+        <div class="flex items-center gap-4">
+            <button onclick="toggleTheme()">
+                <img src="./assets/moon_icon.png" alt="" class="w-5 dark:hidden" />
+                <img src="./assets/sun_icon.png" alt="" class="w-5 hidden dark:block" />
+            </button>
+
+            <a href="#contact"
+                class="hidden lg:flex items-center gap-3 px-8 py-1.5 border border-gray-300 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full ml-4 font-Ovo dark:border-white/30">
+                Contact
+                <img src="./assets/arrow-icon.png" alt="" class="w-3 dark:hidden" />
+                <img src="./assets/arrow-icon-dark.png" alt="" class="w-3 hidden dark:block" />
+            </a>
+
+            <button class="block md:hidden ml-3" onclick="openMenu()">
+                <img src="./assets/menu-black.png" alt="" class="w-6 dark:hidden" />
+                <img src="./assets/menu-white.png" alt="" class="w-6 hidden dark:block" />
+            </button>
+
+        </div>
+        <!-- ----- mobile menu ------ -->
+        <ul id="mobileMenu"
+            class="flex md:hidden flex-col gap-4 py-20 px-10 fixed -right-64 top-0 bottom-0 w-64 z-50 h-screen bg-rose-50 transition duration-500 font-Ovo dark:bg-darkHover dark:text-white">
+            <div class="absolute right-6 top-6" onclick="closeMenu()">
+                <img src="./assets/close-black.png" alt="" class="w-5 cursor-pointer dark:hidden" />
+                <img src="./assets/close-white.png" alt="" class="w-5 cursor-pointer hidden dark:block" />
+            </div>
+            <li><a href="#top" onclick="closeMenu()">Home</a></li>
+            <li><a href="#about" onclick="closeMenu()">About me</a></li>
+            <li><a href="#services" onclick="closeMenu()">Services</a></li>
+            <li><a href="#work" onclick="closeMenu()">My Work</a></li>
+            <li><a href="#contact" onclick="closeMenu()">Contact me</a></li>
+        </ul>
+    </nav>
+
+    <!-- ----- home section ------ -->
+    <div class="w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4">
+        <img src="./assets/p1.jpg" alt="" class="rounded-full w-32" />
+        <h3 class="flex items-end gap-2 text-xl md:text-2xl mb-3 font-Ovo">
+            Hi! I&apos;m Febin
+            <img src="./assets/hand-icon.png" alt="" class="w-6 mb-1" />
+        </h3>
+        <h1 class="text-3xl sm:text-6xl lg:text-[66px] font-Ovo">Digital marketer and Web Designer</h1>
+        <p class="max-w-2xl mx-auto font-Ovo">I am a web designer and digital marketer from kerala, India.</p>
+
+        <div class="flex flex-col sm:flex-row items-center gap-4 mt-4">
+            <a href="#contact"
+                class="px-10 py-2.5 border rounded-full bg-gradient-to-r from-[#b820e6] to-[#da7d20] text-white flex items-center gap-2 dark:border-transparent">
+                contact me <img src="./assets/right-arrow-white.png" alt="" class="w-4" />
+            </a>
+
+            <a href="./assets/dev-icon.png" download
+                class="px-10 py-2.5 rounded-full border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover flex items-center gap-2 bg-white dark:bg-transparent dark:text-white">
+                my resume <img src="./assets/download-icon.png" alt="" class="w-4 dark:invert" />
+            </a>
+        </div>
+    </div>
+
+    <!-- ----- about me section ------ -->
+    <div id="about" class="w-full px-[12%] py-10 scroll-mt-20">
+        <h4 class="text-center mb-2 text-lg font-Ovo">Introduction</h4>
+        <h2 class="text-center text-5xl font-Ovo">About me</h2>
+        <div class="flex w-full flex-col lg:flex-row items-center gap-20 my-20">
+            <div class="max-w-max mx-auto relative"><img src="./assets/p3.jpg" alt=""
+                    class="w-64 sm:w-80 rounded-3xl max-w-none">
+                <div
+                    class="bg-white w-1/2 aspect-square absolute right-0 bottom-0 rounded-full translate-x-1/4 translate-y-1/3 shadow-[0_4px_55px_rgba(149,0,162,0.15)] flex items-center justify-center">
+                   <div class="relative w-40 h-40">
+                      <svg viewBox="0 0 200 200" class="w-full h-full animate-spin-slow">
+                        <defs>
+                          <path id="circlePath" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
+                        </defs>
+                        <text font-size="20" fill="#111" letter-spacing="2">
+                          <textPath href="#circlePath">Digital marketer & Web designer</textPath>
+                        </text>
+                      </svg>
+                    </div>
+                    <img src="./assets/logo-circle.png" alt=""
+                        class="w-1/2 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+                </div>
+            </div>
+            <div class="flex-1">
+                <p class="mb-10 max-w-2xl font-Ovo">I am a motivated Web Designer and Digital Marketing fresher with hands-on project experience in designing responsive websites and executing basic digital marketing strategies. I am passionate about learning, creativity, and building meaningful digital experiences that help businesses grow online.</p>
+                <ul class="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
+                    <li
+                        class="border border-gray-300 dark:border-white/30 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:hover:shadow-white/80 dark:hover:bg-darkHover/50">
+                        <img src="./assets/code-icon.png" alt="" class="w-7 mt-3 dark:hidden"><img
+                            src="./assets/code-icon-dark.png" alt="" class="w-7 mt-3 hidden dark:block">
+                        <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Languages</h3>
+                        <p class="text-gray-600 text-sm dark:text-white/80">HTML, CSS, JavaScript , Bootstrap , jQuery</p>
+                    </li>
+                    <li
+                        class="border border-gray-300 dark:border-white/30 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:hover:shadow-white/80 dark:hover:bg-darkHover/50">
+                        <img src="./assets/edu-icon.png" alt="" class="w-7 mt-3 dark:hidden"><img
+                            src="./assets/edu-icon-dark.png" alt="" class="w-7 mt-3 hidden dark:block">
+                        <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Education</h3>
+                        <p class="text-gray-600 text-sm dark:text-white/80">B.com</p>
+                    </li>
+                    <li
+                        class="border border-gray-300 dark:border-white/30 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:hover:shadow-white/80 dark:hover:bg-darkHover/50">
+                        <img src="./assets/project-icon.png" alt="" class="w-7 mt-3 dark:hidden"><img
+                            src="./assets/project-icon-dark.png" alt="" class="w-7 mt-3 hidden dark:block">
+                        <h3 class="my-4 font-semibold text-gray-700 dark:text-white">Projects</h3>
+                        <p class="text-gray-600 text-sm dark:text-white/80">Built more than 5 projects</p>
+                    </li>
+                </ul>
+                <h4 class="my-6 text-gray-700 font-Ovo dark:text-white/80">Tools i use</h4>
+                <ul class="flex items-center gap-3 sm:gap-5">
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/ps-icon.jpg" alt="ps" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/ai-icon.png" alt="ai" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/id-icon.jpeg" alt="id" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/pr.png" alt="pr" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/ae-icon.png" alt="ae" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/coreldraw.jpg" alt="cd" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/html-logo.png" alt="html-logo" class="w-5 sm:w-7"></li>
+                    <li class="flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-300 dark:border-white/30 rounded-lg cursor-pointer hover:-translate-y-1 duration-500"><img src="./assets/css.jpeg" alt="css" class="w-5 sm:w-7"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- ✨ SERVICES SECTION — COMPLETELY REDESIGNED STYLE ✨ -->
+    <div id="services" class="w-full px-[6%] md:px-[12%] py-16 scroll-mt-20 relative">
+        <h4 class="text-center mb-2 text-lg font-Ovo section-sub inline-block w-full">What I do</h4>
+        <h2 class="text-center text-5xl font-Ovo mt-2">Creative <span class="bg-gradient-to-r from-purple-500 to-amber-500 bg-clip-text text-transparent">Services</span></h2>
+        <p class="text-center text-gray-600 dark:text-gray-300 max-w-xl mx-auto mt-4 font-light">Bespoke solutions that blend design, marketing & brand strategy</p>
+        
+        <div class="services-grid">
+            <!-- Web design card with enhanced visuals -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="./assets/code-icon.png" alt="web icon" class="dark:hidden">
+                    <img src="./assets/code-icon-dark.png" alt="web icon dark" class="hidden dark:block">
+                </div>
+                <h3>Web Design</h3>
+                <p>Modern, responsive interfaces with pixel-perfect execution. I build websites that engage and convert — fully optimised for all devices.</p>
+                <span class="service-feature-badge">✨ design focus </span>
+            </div>
+            
+            <!-- Digital marketing card -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="./assets/project-icon.png" alt="marketing icon" class="dark:hidden">
+                    <img src="./assets/project-icon-dark.png" alt="marketing icon dark" class="hidden dark:block">
+                </div>
+                <h3>Digital Marketing</h3>
+                <p>Data-driven SEO, social media campaigns & growth strategies. Boost your visibility and attract the right audience with organic reach.</p>
+                <span class="service-feature-badge">📈 SEO & Analytics</span>
+            </div>
+            
+            <!-- Brand identity card -->
+            <div class="service-card">
+                <div class="service-icon">
+                    <img src="./assets/edu-icon.png" alt="branding icon" class="dark:hidden">
+                    <img src="./assets/edu-icon-dark.png" alt="branding icon dark" class="hidden dark:block">
+                </div>
+                <h3>Brand Identity</h3>
+                <p>Creative storytelling, logo design & visual identity systems. Stand out with a cohesive brand voice and captivating assets.</p>
+                <span class="service-feature-badge">🎨 Visual Identity</span>
+            </div>
+        </div>
+        
+        <!-- extra subtle decoration: floating shape (just for accent) -->
+        <div class="absolute -z-10 left-5 bottom-10 w-40 h-40 bg-purple-200/30 dark:bg-purple-900/10 rounded-full blur-3xl"></div>
+        <div class="absolute -z-10 right-5 top-20 w-56 h-56 bg-amber-200/20 dark:bg-amber-800/10 rounded-full blur-3xl"></div>
+    </div>
+
+    <!-- My Work Section -->
+    <div id="work" class="w-full px-[12%] py-10 scroll-mt-20">
+        <h4 class="text-center mb-2 text-lg font-Ovo">My portfolio</h4>
+        <h2 class="text-center text-5xl font-Ovo">My latest work</h2>
+        <p class="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">Welcome to my web development portfolio! Explore a
+            collection of projects showcasing my expertise in front-end development.</p>
+        <div class="grid grid-cols-auto my-10 gap-5 dark:text-black" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));">
+            <div class="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group"
+                style="background-image: url('./assets/web design.jpg');">
+                <div class="bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7">
+                    <a href="https://febinfeby2025.github.io/Febbza-clothing/" target="_blank" class="flex w-full justify-between items-center">
+                        <div>
+                            <h2 class="font-semibold">Frontend project</h2>
+                            <p class="text-sm text-gray-700">Web Design</p>
+                        </div>
+                        <div class="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
+                            <img src="./assets/send-icon.png" alt="" class="w-5">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group"
+                style="background-image: url('./assets/gd.webp');">
+                <div class="bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7">
+                    <div>
+                        <h2 class="font-semibold">Graphic Design</h2>
+                        <p class="text-sm text-gray-700">designed posters</p>
+                    </div>
+                    <div class="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
+                        <img src="./assets/send-icon.png" alt="" class="w-5">
+                    </div>
+                </div>
+            </div>
+            <div class="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group"
+                style="background-image: url('./assets/smc1.jpeg');">
+                <div class="bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7">
+                    <div>
+                        <h2 class="font-semibold">Social Media Campaign</h2>
+                        <p class="text-sm text-gray-700">Digital Marketing</p>
+                    </div>
+                    <div class="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
+                        <img src="./assets/send-icon.png" alt="" class="w-5">
+                    </div>
+                </div>
+            </div>
+            <div class="aspect-square bg-no-repeat bg-cover bg-center rounded-lg relative cursor-pointer group"
+                style="background-image: url('./assets/seo1.jpg');">
+                <div class="bg-white w-10/12 rounded-md absolute bottom-5 left-1/2 -translate-x-1/2 py-3 px-5 flex items-center justify-between duration-500 group-hover:bottom-7">
+                    <div>
+                        <h2 class="font-semibold">SEO Optimization</h2>
+                        <p class="text-sm text-gray-700">Digital Marketing</p>
+                    </div>
+                    <div class="border rounded-full border-black w-9 aspect-square flex items-center justify-center shadow-[2px_2px_0_#000] group-hover:bg-lime-300 transition">
+                        <img src="./assets/send-icon.png" alt="" class="w-5">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#"
+            class="w-max flex items-center justify-center gap-2 text-gray-700 border border-gray-300 dark:border-white/25 hover:bg-slate-100/70 dark:hover:bg-darkHover rounded-full py-2 px-8 mx-auto my-20 duration-300 dark:text-white">Show
+            more<img src="./assets/right-arrow-bold.png" alt="" class="w-4 dark:hidden"><img
+                src="./assets/right-arrow-bold-dark.png" alt="" class="w-4 hidden dark:block"></a>
+    </div>
+
+    <!-- Contact me section -->
+    <div id="contact"
+        class="w-full px-[12%] py-10 scroll-mt-20 bg-[url('./assets/footer-bg-color.png')] bg-no-repeat bg-[length:90%_auto] bg-center dark:bg-none">
+        <h4 class="text-center mb-2 text-lg font-Ovo">Connect with me</h4>
+        <h2 class="text-center text-5xl font-Ovo">Get in touch</h2>
+        <p class="text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo">I'd love to hear from you! If you have any
+            questions, comments or feedback, please use the form below.
+        </p>
+        <form class="max-w-2xl mx-auto" id="contact-form">
+            <input type="hidden" name="from_name" value="Portfolio Contact">
+        <div class="grid grid-cols-auto gap-6 mt-10 mb-8">
+                <input type="text" name="name" placeholder="Enter your name"
+                    class="flex-1 px-3 py-2 border rounded-md" required>
+                <input type="email" name="email" placeholder="Enter your email"
+                    class="flex-1 px-3 py-2 border rounded-md" required>
+            </div>
+            <textarea name="message" rows="6" placeholder="Enter your message"
+                class="w-full px-4 py-2 border rounded-md mb-6" required></textarea>
+
+
+
+            <button type="submit"
+                class="py-2 px-8 rounded-full bg-black text-white mx-auto block" style="background-color: rebeccapurple;color: white;">
+                Submit now
+            </button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <div class="mt-20">
+        <div class="text-center">
+            <a href="#!">
+                <img src="./assets/febinicon.png" alt="" class="w-36 mx-auto mb-2 dark:hidden">
+                <img src="./assets/dark.png" alt="" class="w-36 mx-auto mb-2 hidden dark:block">
+            </a>
+        </div>
+        <div>
+          <div class="flex justify-center mt-6 gap-[1px]">
+            <a href="https://wa.me/7994394587" target="_blank" class="flex items-center px-5 py-1 rounded-full bg-green-500 text-white hover:bg-green-600 transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp" width="20" class="mr-0.5">
+            </a>
+            <a href="mailto:febinfeby2025@gmail.com" class="flex items-center px-5 py-1 rounded-full bg-blue-500 text-white hover:bg-blue-600 transition">
+                <img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="20" class="mr-0.5">
+            </a>
+          </div>
+        </div>
+        <div class="text-center sm:flex items-center justify-between border-t border-gray-400 mx-[10%] mt-12 py-3">
+            <p>© 2026 <a href="#" target="_blank">Febin</a>. All rights reserved.</p>
+            <ul class="flex items-center gap-10 justify-center mt-4 sm:mt-0">
+                <li><a target="_blank" href="#!">GitHub</a></li>
+                <li><a target="_blank" href="#!">LinkedIn</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+    <script>emailjs.init("0RX6ViZeqf_ahEfHQ");</script>
+    <script>
+        document.getElementById("contact-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            emailjs.sendForm("service_ubho5sn", "template_3kjo0sv", this).then(() => {
+                alert("Message sent successfully!");
+                this.reset();
+            }, (error) => {
+                alert("Failed to send message. Try again.");
+                console.log(error);
+            });
+        });
+        // basic theme + mobile menu toggles (global functions)
+        function toggleTheme() {
+            document.body.classList.toggle("dark");
+        }
+        function openMenu() {
+            document.getElementById("mobileMenu").style.right = "0";
+        }
+        function closeMenu() {
+            document.getElementById("mobileMenu").style.right = "-16rem";
+        }
+        window.addEventListener("click", function(e) {
+            const menu = document.getElementById("mobileMenu");
+            const btn = e.target.closest("button");
+            if (btn && (btn.getAttribute("onclick")?.includes("openMenu") || btn.getAttribute("onclick")?.includes("closeMenu"))) return;
+            if (menu && menu.style.right === "0px" && !menu.contains(e.target) && !e.target.closest("button")) {
+                closeMenu();
+            }
+        });
+    </script>
+</body>
+</html>
